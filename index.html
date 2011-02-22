@@ -1,9 +1,21 @@
-<!doctype html>
-<html>
-    <head>
-        <title>Hello, World!</title>
-    </head>
-    <body>
-        <p>Hello, World!</p>
-    </body>
-</html>
+---
+layout: default
+title: Home
+---
+
+{% capture has_posts %}{{site.posts.first}}{% endcapture %}
+{% if has_posts != '' %}
+    {% for post in site.posts %}
+        {% if day != post.date %}
+            <div>{{ post.date | date:"%b %d, %Y" }}</div>
+            {% assign day = post.date %}
+        {% endif %}
+        <div>
+            <a href="{{ post.url }}">{{ post.title }}</a>
+            {{ post.content | truncatewords:"50" }}
+            <a href="{{ post.url }}">Read More</a>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Hello, World!</p>
+{% endif %}
