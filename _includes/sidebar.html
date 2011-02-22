@@ -1,7 +1,4 @@
-<sidebar>
-    {% comment %}
-    {% capture has_posts %}{{site.posts.first}}{% endcapture %}
-    {% if has_posts != '' %}
+<nav>
     <ul>
         {% assign day = site.posts.first.date %}
         <li>{{ site.posts.first.date | date:"%b %d, %Y" }}</li>
@@ -19,6 +16,4 @@
             {% endfor %}
         </ul>
     </ul>
-    {% endif %}
-    {% endcomment %}
-</sidebar>
+</nav>
