@@ -1,4 +1,5 @@
 @import "partials/base";
+@import "partials/syntax";
 
 $font-color:#333;
 $heading: 20px;
@@ -93,6 +94,7 @@ nav {
 }
 
 .highlight {
+    font-family: 'Inconsolata', monospace;
     border:1px dashed #ccc;
     margin:10px;
     padding:10px;

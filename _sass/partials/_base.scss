@@ -4,3 +4,4 @@
 @import "compass/utilities";
 @import "blueprint";
 @include font-face('Droid Sans', font-files('DroidSans.ttf', truetype));
+@include font-face('Inconsolata', font-files('Inconsolata.ttf', truetype));
