@@ -1,10 +1,14 @@
-<aside>
+---
+layout: default
+title: Archive
+---
+
+<div class="archive">
     <ul>
         {% assign day = site.posts.first.date %}
-        {% assign max = 10 %}
         <li>{{ site.posts.first.date | date:"%b %d, %Y" }}</li>
         <ul>
-            {% for post in site.posts limit:max %}
+            {% for post in site.posts %}
                 {% if day != post.date %}
                     </ul>
                     <li>{{ post.date | date:"%b %d, %Y" }}</li>
@@ -13,11 +17,9 @@
                 {% endif %}
                 <li>
                     <a href="{{ post.url }}" title="Posted on {{ post.date|date:'%B %d, %Y'}}">{{ post.title }}</a>
+                    {{ post.content | truncatewords:"10" }}
                 </li>
             {% endfor %}
         </ul>
-        {% if paginator.total_posts > max %}
-            <li><a href="/archive.html">View All</a></li>
-        {% endif %}
     </ul>
-</aside>
+</div>

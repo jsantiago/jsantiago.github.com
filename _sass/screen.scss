@@ -22,6 +22,10 @@ p {
     margin-bottom:1.0em;
 }
 
+li {
+    padding-bottom:5px;
+}
+
 #container {
     @include box-shadow;
     @include container;
@@ -68,8 +72,8 @@ footer {
     }
 }
 
-nav {
-    $sidebar-columns: floor($blueprint-grid-columns / 3);
+aside {
+    $sidebar-columns: floor($blueprint-grid-columns * .25);
     @include column($sidebar-columns);
 
     ul {
@@ -78,16 +82,53 @@ nav {
 }
 
 #content {
-    $content-columns: ceil(2 * $blueprint-grid-columns / 3);
+    $content-columns: ceil($blueprint-grid-columns * .75);
     @include column($content-columns, true);
+
+    nav {
+        display:block;
+        margin-right:10px;
+        padding:10px 0;
+        text-align:center;
+        @include clearfix;
+
+        .previous {
+            @include float-left;
+        }
+        .next {
+            @include float-right;
+        }
+    }
 }
 
-.post {
+section {
+    display:block;
     margin-bottom:20px;
+    margin-right:20px;
+
+    header {
+        background-color:inherit;
+        border:none;
+        padding:inherit;
+        margin-bottom:$heading;
+
+        h1, time {
+            display:block;
+            text-align:center;
+        }
+
+        h1 {
+            font-size:22px;
+        }
+
+        time {
+            color:#999;
+        }
+    }
 }
 
 .post-list {
-    .post {
+    article {
         margin-left:20px;
         margin-right:20px;
     }
@@ -98,4 +139,10 @@ nav {
     border:1px dashed #ccc;
     margin:10px;
     padding:10px;
+}
+
+.archive {
+    ul {
+        padding:0 0 10px 10px;
+    }
 }
