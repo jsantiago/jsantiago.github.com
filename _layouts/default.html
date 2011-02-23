@@ -17,21 +17,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- CSS : implied media="all" -->
+  {%comment%}
   <link rel="stylesheet" href="/css/reset.css?v={{site.time|date:"%s"}}">
   <link rel="stylesheet" href="/css/style.css?v={{site.time|date:"%s"}}">
+  {%endcomment%}
   <link rel="stylesheet" href="/css/syntax.css?v={{site.time|date:"%s"}}">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
 
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
   <script src="/js/libs/modernizr-1.6.min.js?v={{site.time|date:"%s"}}"></script>
 </head>
 <body>
 
-  <div id="container">
+<div id="container">
     {% include header.html %}
     
     {% include sidebar.html %}
     
-    <div id="main">
+    <div id="content">
         {{ content }}
     </div>
 
