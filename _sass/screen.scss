@@ -50,7 +50,6 @@ li {
 
 header, footer {
     display:block;
-    text-align:center;
 }
 
 header {
@@ -58,10 +57,23 @@ header {
     border-bottom:$border;
     padding-top:$heading;
     padding-bottom:$heading*2;
+
+    section {
+        @include container;
+        display:block;
+        text-align:right;
+
+        a {
+            text-decoration:none;
+            // normal, [hover], [active], [visited], [focus]
+            @include link-colors($font-color, lighten($font-color, 20%), darken($font-color, 10%));
+        }
+    }
 }
 
 footer {
     padding:10px;
+    text-align:center;
 
     ul {
         @include horizontal-list;
