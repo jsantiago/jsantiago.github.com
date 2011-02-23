@@ -44,7 +44,14 @@ li {
     }
 
     header {
+        border-bottom:$border;
         padding-bottom:$heading;
+    }
+
+    section {
+        header {
+            border-bottom:none;
+        }
     }
 }
 
@@ -54,7 +61,8 @@ header, footer {
 
 header {
     background-color:#eee;
-    border-bottom:$border;
+    @include linear-gradient(color-stops(#fff, #bbb));
+    border-bottom:1px solid #999;
     padding-top:$heading;
     padding-bottom:$heading*2;
 
@@ -120,6 +128,7 @@ section {
 
     header {
         background-color:inherit;
+        background-image:none;
         border:none;
         padding:inherit;
         margin-bottom:$heading;
