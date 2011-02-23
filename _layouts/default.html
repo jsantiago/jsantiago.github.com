@@ -22,16 +22,16 @@
     <link rel="stylesheet" href="/css/style.css?v={{site.time|date:"%s"}}">
     {%endcomment%}
     <link rel="stylesheet" href="/css/syntax.css?v={{site.time|date:"%s"}}">
-    <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/css/screen.css?v={{site.time|date:"%s"}}">
 
     <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
     <script src="/js/libs/modernizr-1.6.min.js?v={{site.time|date:"%s"}}"></script>
 </head>
 <body>
 
-    <div id="container">
+    {% include header.html %}
 
-        {% include header.html %}
+    <div id="container">
 
         {% include sidebar.html %}
 
@@ -39,10 +39,12 @@
             {{ content }}
         </div>
 
-        {% include footer.html %}
 
     </div> <!--! end of #container -->
 
+    {% include footer.html %}
+
+    {%comment%}
     <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
     <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/libs/jquery-1.5.0.min.js?v={{site.time|date:"%s"}}"%3E%3C/script%3E'))</script>
@@ -51,6 +53,7 @@
     <script src="/js/plugins.js?v={{site.time|date:"%s"}}"></script>
     <script src="/js/script.js?v={{site.time|date:"%s"}}"></script>
     <!-- end concatenated and minified scripts-->
+    {%endcomment%}
 
     <!--[if lt IE 7 ]>
         <script src="js/libs/dd_belatedpng.js?v={{site.time|date:"%s"}}"></script>

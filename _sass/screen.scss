@@ -1,23 +1,76 @@
 @import "partials/base";
 
-/* FooBar */
+$heading: 20px;
+$border: 1px solid #ccc;
+
+/* SCSS */
+body {
+    background-color:#fff;
+}
+
+a {
+    // normal, [hover], [active], [visited], [focus]
+    //@include link-colors(#00c, #0cc, #c0c, #ccc, #cc0);
+    @include link-colors(#00c);
+}
+
+p {
+    margin-bottom:1.0em;
+}
+
 #container {
     @include box-shadow;
     @include container;
+    background-color:#fff;
+    margin-top:-$heading;
+    padding-top:$heading;
+    padding-bottom:$heading;
+}
+
+.no-boxshadow {
+    #container {
+        border-left:$border;
+        border-right:$border;
+        border-bottom:$border;
+        margin-top:0;
+    }
+
+    header {
+        padding-bottom:$heading;
+    }
 }
 
 header, footer {
-    @include column($blueprint-grid-columns);
+    display:block;
+    text-align:center;
+}
+
+header {
+    background-color:#eee;
+    border-bottom:$border;
+    padding-top:$heading;
+    padding-bottom:$heading*2;
 }
 
 footer {
-    border-top:1px solid #ddd;
-    margin-top:20px;
+    padding:10px;
+
+    ul {
+        @include horizontal-list;
+
+        li {
+            float:none;
+        }
+    }
 }
 
 nav {
     $sidebar-columns: floor($blueprint-grid-columns / 3);
     @include column($sidebar-columns);
+
+    ul {
+        padding:0 0 10px 10px;
+    }
 }
 
 #content {
@@ -25,10 +78,18 @@ nav {
     @include column($content-columns, true);
 }
 
+.post {
+    margin-bottom:20px;
+}
+
+.post-list {
+    .post {
+        margin-left:20px;
+    }
+}
+
 .highlight {
-    @include border-radius;
-    background-color:#e7e7e7;
-    border:1px solid #ccc;
+    border:1px dashed #ccc;
     margin:10px;
     padding:10px;
 }
