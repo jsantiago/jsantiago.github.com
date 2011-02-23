@@ -1,0 +1,61 @@
+#!/bin/bash
+
+
+DIR="_posts"
+TYPE="md"
+
+usage(){
+    echo "Usage:"
+    printf "\t-n <title>\t\tCreate new post\n"
+    printf "\t-p [path_to_post]\tMark post as published. Else, mark all posts as published.\n"
+    printf "\t-u [path_to_post]\tMark post as unpublished. Else, mark all posts as unpublished.\n"
+    exit 1
+}
+
+new(){
+    echo "Creating new post..."
+    TITLE=$1
+    DEFAULT="---
+layout: post
+title: $TITLE
+published: true
+---
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dolor mi, scelerisque a iaculis sed, venenatis eu orci. Donec viverra turpis est. Fusce pharetra porttitor nisi nec dignissim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel nulla magna, id gravida libero. Aliquam erat volutpat. Sed accumsan risus id sem rhoncus in placerat lacus luctus. Maecenas eu enim ipsum. Integer vel lectus vitae lacus pellentesque bibendum. Pellentesque eros erat, volutpat at consequat ac, commodo ut orci. Nulla facilisi. Integer dictum, nibh eu ultricies laoreet, nunc nisi vestibulum nisi, ut bibendum tortor purus id mauris. Nulla sed turpis eleifend magna malesuada luctus id eget arcu. Suspendisse vehicula augue pulvinar nunc lacinia ac tempor augue rutrum. Praesent ac nulla eros, id pretium nisl."
+    CLEAN=$(echo $TITLE | sed "s:[^ A-z0-9]::g" | sed "s: :-:g" | tr [:upper:] [:lower:])
+    COUNT=$(printf "%02d" $(find $DIR -name "`date +'%F'`*.$TYPE" | wc -l))
+    FILE="$DIR/`date +'%F'`-$COUNT-$CLEAN.$TYPE"
+    echo "$FILE"
+    echo "$DEFAULT" > $FILE
+    vim $FILE
+}
+
+publish(){
+    if [ -n "$1" ];then
+        echo "Marking $1 as published..."
+        sed -i '' "s/published: false/published: true/g" $1
+    else
+        echo "Marking all posts as published..."
+        sed -i '' "s/published: false/published: true/g" $DIR/*.$TYPE
+    fi
+}
+
+unpublish(){
+    if [ -n "$1" ];then
+        echo "Marking $1 as unpublished..."
+        sed -i '' "s/published: true/published: false/g" $1
+    else
+        echo "Marking all posts as unpublished..."
+        sed -i '' "s/published: true/published: false/g" $DIR/*.$TYPE
+    fi
+}
+
+while getopts "n:pu $*" flag
+do
+    case "$flag" in
+        n) new $OPTARG;;
+        p) publish $2;;
+        u) unpublish $2;;
+        *) usage;;
+    esac
+done
