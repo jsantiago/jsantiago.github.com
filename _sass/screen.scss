@@ -1,11 +1,14 @@
 @import "partials/base";
 
+$font-color:#333;
 $heading: 20px;
 $border: 1px solid #ccc;
 
 /* SCSS */
 body {
     background-color:#fff;
+    color:$font-color;
+    font-family: 'Droid Sans', verdanna, georgia, arial, serif;
 }
 
 a {
@@ -85,6 +88,7 @@ nav {
 .post-list {
     .post {
         margin-left:20px;
+        margin-right:20px;
     }
 }
 
