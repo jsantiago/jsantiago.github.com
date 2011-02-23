@@ -29,20 +29,7 @@
 </head>
 <body>
 
-    {% include header.html %}
-
-    <div id="container">
-
-        {% include sidebar.html %}
-
-        <div id="content">
-            {{ content }}
-        </div>
-
-
-    </div> <!--! end of #container -->
-
-    {% include footer.html %}
+    {{ content }}
 
     {%comment%}
     <!-- Grab Google CDN's jQuery. fall back to local if necessary -->

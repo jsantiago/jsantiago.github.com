@@ -3,28 +3,43 @@ layout: default
 title: Home
 ---
 
-{% for post in paginator.posts %}
-    <section>
-        <header>
-            <h1>{{ post.title }}</h1>
-            <time datetime="{{post.date}}">{{ post.date | date:"%b %d, %Y" }}</time>
-        </header>
-        <article>
-            {{ post.content }}
-        </article>
-    </section>
-{% endfor %}
+{% include header.html %}
 
-<nav>
-{% if paginator.previous_page %}
-    {% if paginator.previous_page == 1 %}
-        <a class="previous" href="/">Previous Page</a>
-    {% else %}
-        <a class="previous" href="/page{{paginator.previous_page}}">Previous Page</a>
-    {% endif %}
-{% endif %}
+<div id="container">
 
-{% if paginator.next_page %}
-    <a class="next" href="/page{{paginator.next_page}}">Next Page</a>
-{% endif %}
-</nav>
+    {% include sidebar.html %}
+
+    <div id="content">
+
+        {% for post in paginator.posts %}
+            <section>
+                <header>
+                    <h1>{{ post.title }}</h1>
+                    <time datetime="{{post.date}}">{{ post.date | date:"%b %d, %Y" }}</time>
+                </header>
+                <article>
+                    {{ post.content }}
+                </article>
+            </section>
+        {% endfor %}
+
+        <nav>
+            {% if paginator.previous_page %}
+                {% if paginator.previous_page == 1 %}
+                    <a class="previous" href="/">Previous Page</a>
+                {% else %}
+                    <a class="previous" href="/page{{paginator.previous_page}}">Previous Page</a>
+                {% endif %}
+            {% endif %}
+
+            {% if paginator.next_page %}
+                <a class="next" href="/page{{paginator.next_page}}">Next Page</a>
+            {% endif %}
+        </nav>
+
+    </div>
+
+
+</div> <!--! end of #container -->
+
+{% include footer.html %}
