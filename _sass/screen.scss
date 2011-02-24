@@ -31,39 +31,9 @@ li {
     @include box-shadow;
     @include container;
     background-color:#fff;
-    margin-top:-$heading*2;
+    margin-top:ceil(-$heading*2.5);
     padding-top:$heading;
     padding-bottom:$heading;
-}
-
-.no-boxshadow {
-    #container {
-        border-left:$border;
-        border-right:$border;
-        border-bottom:$border;
-        margin-top:0;
-    }
-
-    header {
-        background-color:#fff;
-        border-bottom:none;
-        padding-bottom:0;
-        padding-top:0;
-
-        nav {
-            background-color:$header-color;
-            border-left:$border;
-            border-bottom:$border;
-            border-right:$border;
-        }
-    }
-
-    article {
-        header {
-            background-color:#fff;
-            border-bottom:none;
-        }
-    }
 }
 
 header, footer {
@@ -181,5 +151,30 @@ article {
 .archive {
     ul {
         padding:0 0 10px 10px;
+    }
+}
+
+/* IE */
+.no-boxshadow {
+    body {
+        background-color:$header-color;
+    }
+
+    #container {
+        border:$border;
+        margin-top:0;
+    }
+
+    header {
+        border-bottom:none;
+        padding-bottom:0;
+        padding-top:0;
+    }
+
+    article {
+        header {
+            background-color:#fff;
+            border-bottom:none;
+        }
     }
 }
