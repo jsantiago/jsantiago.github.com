@@ -4,15 +4,13 @@ title: Home
 ---
 
 {% for post in paginator.posts %}
-    <section>
+    <article>
         <header>
             <h1>{{ post.title }}</h1>
             <time datetime="{{post.date}}">{{ post.date | date:"%b %d, %Y" }}</time>
         </header>
-        <article>
-            {{ post.content }}
-        </article>
-    </section>
+        {{ post.content }}
+    </article>
 {% endfor %}
 
 <nav>

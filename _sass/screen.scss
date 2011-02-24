@@ -2,7 +2,8 @@
 @import "partials/syntax";
 
 $font-color:#333;
-$heading: 20px;
+$header-color:#eee;
+$heading: 15px;
 $border: 1px solid #ccc;
 
 /* SCSS */
@@ -30,7 +31,7 @@ li {
     @include box-shadow;
     @include container;
     background-color:#fff;
-    margin-top:-$heading;
+    margin-top:-$heading*2;
     padding-top:$heading;
     padding-bottom:$heading;
 }
@@ -44,12 +45,22 @@ li {
     }
 
     header {
-        border-bottom:$border;
-        padding-bottom:$heading;
+        background-color:#fff;
+        border-bottom:none;
+        padding-bottom:0;
+        padding-top:0;
+
+        nav {
+            background-color:$header-color;
+            border-left:$border;
+            border-bottom:$border;
+            border-right:$border;
+        }
     }
 
-    section {
+    article {
         header {
+            background-color:#fff;
             border-bottom:none;
         }
     }
@@ -60,18 +71,30 @@ header, footer {
 }
 
 header {
-    background-color:#eee;
+    background-color:$header-color;
     @include linear-gradient(color-stops(#fff, #bbb));
     border-bottom:1px solid #999;
     padding-top:$heading;
-    padding-bottom:$heading*2;
+    padding-bottom:$heading*3;
 
-    section {
+    nav {
         @include container;
         display:block;
         text-align:right;
 
+        ul {
+            @include horizontal-list;
+
+            li {
+                float:none;
+                position:relative;
+            }
+        }
+
         a {
+            display:inline-block;
+            padding:5px;
+            margin:5px;
             text-decoration:none;
             // normal, [hover], [active], [visited], [focus]
             @include link-colors($font-color, lighten($font-color, 20%), darken($font-color, 10%));
@@ -107,7 +130,7 @@ aside {
 
     nav {
         display:block;
-        margin-right:10px;
+        margin-right:20px;
         padding:10px 0;
         text-align:center;
         @include clearfix;
@@ -121,7 +144,7 @@ aside {
     }
 }
 
-section {
+article {
     display:block;
     margin-bottom:20px;
     margin-right:20px;
@@ -145,13 +168,6 @@ section {
         time {
             color:#999;
         }
-    }
-}
-
-.post-list {
-    article {
-        margin-left:20px;
-        margin-right:20px;
     }
 }
 
