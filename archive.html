@@ -1,31 +1,23 @@
 ---
-layout: default
+layout: archive
 title: Archive
 ---
 
-{% include header.html %}
-
-<div id="container">
-    <div class="archive">
-        <ul>
-            {% assign day = site.posts.first.date %}
-            <li>{{ site.posts.first.date | date:"%b %d, %Y" }}</li>
-            <ul>
-                {% for post in site.posts %}
-                    {% if day != post.date %}
-                        </ul>
-                        <li>{{ post.date | date:"%b %d, %Y" }}</li>
-                        <ul>
-                        {% assign day = post.date %}
-                    {% endif %}
-                    <li>
-                        <a href="{{ post.url }}" title="Posted on {{ post.date|date:'%B %d, %Y'}}">{{ post.title }}</a>
-                        {{ post.content | truncatewords:"10" }}
-                    </li>
-                {% endfor %}
-            </ul>
-        </ul>
-    </div>
-</div> <!--! end of #container -->
-
-{% include footer.html %}
+<ul>
+    {% assign day = site.posts.first.date %}
+    <li>{{ site.posts.first.date | date:"%b %d, %Y" }}</li>
+    <ul>
+        {% for post in site.posts %}
+            {% if day != post.date %}
+                </ul>
+                <li>{{ post.date | date:"%b %d, %Y" }}</li>
+                <ul>
+                {% assign day = post.date %}
+            {% endif %}
+            <li>
+                <a href="{{ post.url }}" title="Posted on {{ post.date|date:'%B %d, %Y'}}">{{ post.title }}</a>
+                {{ post.content | truncatewords:"10" }}
+            </li>
+        {% endfor %}
+    </ul>
+</ul>

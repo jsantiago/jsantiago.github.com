@@ -1,26 +1,15 @@
 ---
 layout: default
 ---
-{% include header.html %}
 
-<div id="container">
+<section>
+    <header>
+        <h1>{{ page.title }}</h1>
+        <time datetime="{{page.date}}">{{ page.date | date:"%b %d, %Y" }}</time>
+    </header>
+    <article>
+        {{ content }}
+    </article>
+</section>
 
-    {% include sidebar.html %}
-
-    <div id="content">
-        <section>
-            <header>
-                <h1>{{ page.title }}</h1>
-                <time datetime="{{page.date}}">{{ page.date | date:"%b %d, %Y" }}</time>
-            </header>
-            <article>
-                {{ content }}
-            </article>
-        </section>
-
-        <a href="/">Back</a>
-    </div>
-
-</div> <!--! end of #container -->
-
-{% include footer.html %}
+<a href="/">Back</a>
