@@ -1,47 +1,30 @@
-# https://gist.github.com/raw/143571/ca5f0ba8c5da721974914cf94c0024d6a4b0de21/generate_tags.rb
-task :default => 'tags:generate'
+task :default => 'jekyll:compile'
 
-# Found at: http://gist.github.com/143571
-namespace :tags do
-  task :generate do
-    puts 'Generating tags...'
-    require 'rubygems'
-    require 'jekyll'
-    include Jekyll::Filters
- 
-    options = Jekyll.configuration({})
-    site = Jekyll::Site.new(options)
-    site.read_posts('')
- 
-    html =<<-HTML
----
-layout: default
-title: Tags
----
-    HTML
- 
-    # Sort by the number of posts in the category.
-    categories = site.categories.sort#_by { |s| s[1].length }
+namespace :jekyll do
+    desc "Delete generated Jekyll files"
+    task :clean do
+        system "rm -rf _site"
+    end
 
-    categories.each do |category, posts|
-      html << <<-HTML
-      <h3 id="#{category}">&rarr; #{category} (#{posts.length})</h3>
-      HTML
- 
-      html << '<ul class="posts">'
-      posts.reverse.each do |post|
-        post_data = post.to_liquid
-        html << <<-HTML    
-          <li><span>#{date_to_string post.date}</span> &rarr; <a href="#{post.url}">#{post_data['title']}</a></li>
-        HTML
-      end
-      html << '</ul>'
+    desc "Start the Jekyll server"
+    task :server => [:clean, 'compass:compile'] do
+        system "jekyll --auto --server"
     end
- 
-    File.open('tags.html', 'w+') do |file|
-      file.puts html
+
+    desc "Clean and compile Jekyll + Compass"
+    task :compile => [:clean, 'compass:compile'] do
+        system "jekyll"
     end
- 
-    puts 'Done.'
-  end
+end
+
+namespace :compass do
+    desc "Run the Compass watch script"
+    task :watch do
+        system "compass watch"
+    end
+
+    desc "Compile SCSS files"
+    task :compile do
+        system "compass compile --force"
+    end
 end

@@ -1,3 +1,5 @@
+safe: true
+pygments: true
 markdown: rdiscount
 paginate: 1
 exclude: Rakefile, config.rb
