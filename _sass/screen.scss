@@ -98,26 +98,26 @@ aside {
     $content-columns: ceil($blueprint-grid-columns * .75);
     @include column($content-columns, true);
 
-    nav {
-        display:block;
-        margin-right:20px;
-        padding:10px 0;
-        text-align:center;
-        @include clearfix;
+}
 
-        .previous {
-            @include float-left;
-        }
-        .next {
-            @include float-right;
-        }
+nav {
+    display:block;
+    margin:0 20px;
+    padding:10px 0;
+    text-align:center;
+    @include clearfix;
+
+    .previous {
+        @include float-left;
+    }
+    .next {
+        @include float-right;
     }
 }
 
 article {
     display:block;
-    margin-bottom:20px;
-    margin-right:20px;
+    margin:0 20px 20px 20px;
 
     header {
         background-color:inherit;
@@ -149,6 +149,8 @@ article {
 }
 
 .archive {
+    padding:20px;
+
     ul {
         padding:0 0 10px 10px;
     }
