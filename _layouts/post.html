@@ -10,6 +10,15 @@ layout: default
     {{ content }}
 </article>
 
+{% if page.tags != empty %}
+    <div class="tags">
+        Tagged as:
+        {% for tag in page.tags %}
+            <a type="tag" href="/tags/{{tag}}">{{tag}}</a>{% if forloop.rindex0 > 0 %}, {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+
 <nav>
     <a href="/">Back</a>
 </nav>

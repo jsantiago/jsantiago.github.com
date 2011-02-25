@@ -1,0 +1,15 @@
+---
+layout: archive
+title: Tags
+---
+
+<ul class="tag-list">
+{% for post in site.tags %}
+    <li><a href="/tags/{{post[0]}}/">{{post[0]}}</a> ({{post[1]|size}})</li>
+    <ul>
+        {% for p in post[1] %}
+            <li>&rarr; <a href="{{p.url}}">{{p.title}}</a></li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+</ul>

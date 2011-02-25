@@ -3,6 +3,9 @@
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/archive.html">Archive</a></li>
+            {% if site.tags != empty %}
+                <li><a href="/tags.html">Tags</a></li>
+            {% endif %}
         </ul>
     </nav>
 </header>
