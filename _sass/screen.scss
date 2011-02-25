@@ -17,6 +17,7 @@ a {
     // normal, [hover], [active], [visited], [focus]
     $link: #06c;
     @include link-colors($link, lighten($link, 20%), darken($link, 10%));
+    text-decoration:none;
 }
 
 p {
@@ -31,7 +32,7 @@ li {
     @include box-shadow;
     @include container;
     background-color:#fff;
-    margin-top:ceil(-$heading*2.5);
+    margin-top:ceil(-$heading*3);
     padding-top:$heading;
     padding-bottom:$heading;
 }
@@ -44,7 +45,6 @@ header {
     background-color:$header-color;
     @include linear-gradient(color-stops(#fff, #bbb));
     border-bottom:1px solid #999;
-    padding-top:$heading;
     padding-bottom:$heading*3;
 
     nav {
@@ -158,25 +158,15 @@ article {
 
 /* IE */
 .no-boxshadow {
-    body {
-        background-color:$header-color;
-    }
-
     #container {
         border:$border;
-        margin-top:0;
-    }
-
-    header {
-        border-bottom:none;
-        padding-bottom:0;
-        padding-top:0;
     }
 
     article {
         header {
             background-color:#fff;
             border-bottom:none;
+            padding-bottom:0;
         }
     }
 }
