@@ -16,7 +16,6 @@ title: Archive
             {% endif %}
             <li>
                 <a href="{{ post.url }}" title="Posted on {{ post.date|date:'%B %d, %Y'}}">{{ post.title }}</a>
-                {{ post.content | truncatewords:"10" }}
             </li>
         {% endfor %}
     </ul>
