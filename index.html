@@ -15,19 +15,16 @@ title: Home
 
 <nav>
     {% if paginator.previous_page %}
-        {% capture offset %}{{paginator.previous_page|minus:'1'}}{% endcapture %}
-        {% for post in site.posts limit:paginator.per_page offset:offset %}
-            {% if paginator.previous_page == 1 %}
-                <a class="previous" href="/">&larr; {{post.title}}</a>
-            {% else %}
-                <a class="previous" href="/page{{paginator.previous_page}}">&larr; {{post.title}}</a>
-            {% endif %}
-        {% endfor %}
+        {% assign prev = paginator.posts.first.next %}
+        {% if paginator.previous_page == 1 %}
+            <a class="previous" href="/">&larr; {{prev.title}}</a>
+        {% else %}
+            <a class="previous" href="/page{{paginator.previous_page}}">&larr; {{prev.title}}</a>
+        {% endif %}
     {% endif %}
 
     {% if paginator.next_page %}
-        {% for post in site.posts limit:paginator.per_page offset:paginator.page %}
-            <a class="next" href="/page{{paginator.next_page}}">{{post.title}} &rarr;</a>
-        {% endfor %}
+        {% assign next = paginator.posts.first.previous %}
+        <a class="next" href="/page{{paginator.next_page}}">{{next.title}} &rarr;</a>
     {% endif %}
 </nav>
