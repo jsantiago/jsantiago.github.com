@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 DIR="_posts"
 TYPE="md"
 
@@ -14,7 +13,7 @@ usage(){
 
 new(){
     echo "Creating new post..."
-    TITLE=$1
+    TITLE=$*
     DEFAULT="---
 layout: post
 title: $TITLE
