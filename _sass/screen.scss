@@ -2,20 +2,31 @@
 @import "partials/syntax";
 
 $font-color:#333;
-$header-color:#eee;
 $heading: 15px;
 $border: 1px solid #ccc;
 
+//$background: #fff;
+//$link: #06c;
+//$ribbon: #7f9db9;
+//$header-color:#eee;
+//$header-link: #333;
+//$footer-color: #333;
+
+$background: #333;
+$link: #0b61a4;
+$ribbon: #25567b;
+$header-color: #333;
+$header-link: #fff;
+$footer-color: #fff;
+
 /* SCSS */
 body {
-    background-color:#fff;
+    background-color:$background;
     color:$font-color;
     font-family: 'Droid Sans', verdanna, georgia, arial, serif;
 }
 
 a {
-    // normal, [hover], [active], [visited], [focus]
-    $link: #06c;
     @include link-colors($link, lighten($link, 20%), darken($link, 10%));
     text-decoration:none;
 }
@@ -29,10 +40,9 @@ li {
 }
 
 #container {
-    @include box-shadow;
     @include container;
     background-color:#fff;
-    margin-top:ceil(-$heading*3);
+    overflow:visible;
     padding-top:$heading;
     padding-bottom:$heading;
 }
@@ -43,36 +53,40 @@ header, footer {
 
 header {
     background-color:$header-color;
-    @include linear-gradient(color-stops(#fff, #bbb));
-    border-bottom:1px solid #999;
-    padding-bottom:$heading*3;
 
     nav {
         @include container;
+        border-top:5px solid #fff;
         display:block;
+        padding:0;
         text-align:right;
 
         ul {
             @include horizontal-list;
 
             li {
+                display:inline-block;
                 float:none;
+                padding:0;
                 position:relative;
             }
         }
 
         a {
+            @include link-colors($header-link, lighten($header-link, 20%), darken($header-link, 10%));
             display:inline-block;
-            padding:5px;
-            margin:5px;
+            padding:15px;
             text-decoration:none;
-            // normal, [hover], [active], [visited], [focus]
-            @include link-colors($font-color, lighten($font-color, 20%), darken($font-color, 10%));
+        }
+
+        a:hover {
+            background-color:$link;
         }
     }
 }
 
 footer {
+    color:$footer-color;
     padding:10px;
     text-align:center;
 
@@ -124,7 +138,7 @@ article {
         background-image:none;
         border:none;
         padding:inherit;
-        margin-bottom:$heading;
+        margin-bottom:30px;
 
         h1, time {
             display:block;
@@ -166,6 +180,54 @@ article {
     }
 }
 
+.ribbon {
+    @include box-shadow(darken($ribbon, 20%), 0, 0, 4px);
+    background:$ribbon;
+    color:#fff;
+    float:left;
+    height:50px;
+    left:-15px;
+    position:relative;
+    top:5px;
+    width:80px;
+    z-index: 100;
+
+    div {
+        text-align:right;
+    }
+
+    .day {
+        position:absolute;
+        font-size:22px;
+        right:33px;
+        bottom:5px;
+    }
+
+    .month {
+        position:absolute;
+        right:33px;
+        top:5px;
+    }
+
+    .year {
+        @include rotate(-90deg);
+        position:absolute;
+        right:0;
+        top:16px;
+    }
+}
+
+.fold {
+    border-right:15px solid darken($ribbon, 20%);
+    border-bottom:15px solid transparent;
+    height:0px;
+    width:0px;
+    position: relative;
+    left:-15px;
+    top:55px;
+    z-index: -1;
+}
+
 /* IE */
 .no-boxshadow {
     #container {
@@ -177,6 +239,16 @@ article {
             background-color:#fff;
             border-bottom:none;
             padding-bottom:0;
+        }
+    }
+}
+
+.no-csstransforms {
+    .ribbon {
+        div {
+            font-size:16px;
+            position:static;
+            text-align:center;
         }
     }
 }
