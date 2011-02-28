@@ -256,3 +256,71 @@ article {
         }
     }
 }
+
+/* iPhone Portrait */
+@media screen and (max-width:320px) {
+    $max: 320px;
+    $main: 280px;
+    $footer: 260px;
+
+    html {
+        max-width:$max;
+
+        header {
+            nav {
+                width:$main;
+            }
+        }
+
+        #container {
+            width:$main;
+
+            article {
+                clear:both;
+                margin-top:55px;
+
+                header {
+                    margin-bottom:15px;
+                }
+            }
+        }
+
+        footer {
+            width:$footer;
+        }
+    }
+}
+
+/* iPhone Landscape */
+@media screen and (min-width:321px) and (max-width:480px) {
+    $max: 480px;
+    $main: 440px;
+    $footer: 420px;
+
+    html {
+        max-width:$max;
+
+        header {
+            nav {
+                width:$main;
+            }
+        }
+
+        #container {
+            width:$main;
+
+            article {
+                clear:both;
+                margin-top:55px;
+
+                header {
+                    margin-bottom:15px;
+                }
+            }
+        }
+
+        footer {
+            width:$footer;
+        }
+    }
+}
