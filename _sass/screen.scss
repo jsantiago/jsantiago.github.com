@@ -260,8 +260,8 @@ article {
 /* iPhone Portrait */
 @media screen and (max-width:320px) {
     $max: 320px;
-    $main: 280px;
-    $footer: 260px;
+    $main: 320px;
+    $footer: 310px;
 
     html {
         max-width:$max;
@@ -275,9 +275,16 @@ article {
         #container {
             width:$main;
 
+            .ribbon {
+                .day,
+                .month {
+                    right:30px;
+                }
+            }
+
             article {
                 clear:both;
-                margin-top:55px;
+                margin:55px 12px 20px 12px;
 
                 header {
                     margin-bottom:15px;
@@ -294,8 +301,8 @@ article {
 /* iPhone Landscape */
 @media screen and (min-width:321px) and (max-width:480px) {
     $max: 480px;
-    $main: 440px;
-    $footer: 420px;
+    $main: 480px;
+    $footer: 470px;
 
     html {
         max-width:$max;
@@ -309,9 +316,16 @@ article {
         #container {
             width:$main;
 
+            .ribbon {
+                .day,
+                .month {
+                    right:30px;
+                }
+            }
+
             article {
                 clear:both;
-                margin-top:55px;
+                margin:55px 12px 20px 12px;
 
                 header {
                     margin-bottom:15px;
