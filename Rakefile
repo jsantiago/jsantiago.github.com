@@ -69,3 +69,28 @@ title: #{tag}
         end
     end
 end
+
+namespace :post do
+    desc "Create a new post. Post directory defaults to '_posts'"
+    task :new, [:title, :dir] do |t, args|
+        args.with_defaults(:dir => "_posts")
+        puts "Creating new post..."
+        slug = args.title.downcase.gsub(/[^a-z0-9]+/, '-').chomp('-')
+        now = Time.new.strftime("%F")
+        count = Dir["#{args.dir}/#{now}*.md"].length
+        post = <<-POST
+---
+layout: post
+title: #{args.title}
+published: true
+---
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dolor mi, scelerisque a iaculis sed, venenatis eu orci. Donec viverra turpis est. Fusce pharetra porttitor nisi nec dignissim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel nulla magna, id gravida libero. Aliquam erat volutpat. Sed accumsan risus id sem rhoncus in placerat lacus luctus. Maecenas eu enim ipsum. Integer vel lectus vitae lacus pellentesque bibendum. Pellentesque eros erat, volutpat at consequat ac, commodo ut orci. Nulla facilisi. Integer dictum, nibh eu ultricies laoreet, nunc nisi vestibulum nisi, ut bibendum tortor purus id mauris. Nulla sed turpis eleifend magna malesuada luctus id eget arcu. Suspendisse vehicula augue pulvinar nunc lacinia ac tempor augue rutrum. Praesent ac nulla eros, id pretium nisl.
+        POST
+        filename = "#{now}-%02d-#{slug}.md" % count
+        File.open("#{args.dir}/#{filename}", "w+") do |file|
+            file.puts(post)
+        end
+        system "vim #{args.dir}/#{filename}"
+    end
+end
