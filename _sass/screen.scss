@@ -12,10 +12,9 @@ $border: 1px solid #ccc;
 //$header-link: #333;
 //$footer-color: #333;
 
-$background: #333;
+$background: #444;
 $link: #0b61a4;
 $ribbon: #25567b;
-$header-color: #333;
 $header-link: #fff;
 $footer-color: #fff;
 
@@ -52,7 +51,7 @@ header, footer {
 }
 
 header {
-    background-color:$header-color;
+    background-color:$background;
 
     nav {
         @include container;
@@ -65,7 +64,7 @@ header {
             @include horizontal-list;
 
             li {
-                display:inline-block;
+                display:inline;
                 float:none;
                 padding:0;
                 position:relative;
@@ -86,8 +85,9 @@ header {
 }
 
 footer {
+    @include container;
     color:$footer-color;
-    padding:10px;
+    padding:10px 0;
     text-align:center;
 
     ul {
@@ -96,6 +96,10 @@ footer {
         li {
             float:none;
         }
+    }
+
+    a {
+        color:#bbb;
     }
 }
 
