@@ -37,34 +37,30 @@ end
 namespace :tags do
     desc "Generate tags"
     task :generate do
-        puts "Generating tags..."
+        require 'erb'
         require 'jekyll'
+
+        puts "Generating tags..."
+
+        # Read Jekyll site
         options = Jekyll.configuration({})
         site = Jekyll::Site.new(options)
         site.read_posts('')
-        site.tags.sort.each do |tag, posts|
-            html = <<-HTML
----
-layout: archive
-title: #{tag}
----
 
-<ul>
-<li>Posts tagged as '#{tag}':</li>
-<ul>
-            HTML
+        # Generate page for each tag
+        site.tags.each do |tag, posts|
+            # Fill out template
+            template = ERB.new( File.open("_templates/tag.erb", "r") { |f| f.read } )
+            html = template.result(binding)
+
+            # Write tagged post to tags dir
             posts.each do |post|
                 post.write("tags/"+tag)
-                html << <<-HTML
-                    <li><a href="#{post.url}">#{post.data['title']}</a></li>
-                HTML
             end
-            html << <<-HTML
-                </ul>
-                </ul>
-            HTML
+
+            # Write template
             File.open("tags/#{tag}/index.html", "w+") do |file|
-                file.puts html
+                file.puts(html)
             end
         end
     end
@@ -73,24 +69,70 @@ end
 namespace :post do
     desc "Create a new post. Post directory defaults to '_posts'"
     task :new, [:title, :dir] do |t, args|
-        args.with_defaults(:dir => "_posts")
-        puts "Creating new post..."
-        slug = args.title.downcase.gsub(/[^a-z0-9]+/, '-').chomp('-')
-        now = Time.new.strftime("%F")
-        count = Dir["#{args.dir}/#{now}*.md"].length
-        post = <<-POST
----
-layout: post
-title: #{args.title}
-published: true
----
+        require 'erb'
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dolor mi, scelerisque a iaculis sed, venenatis eu orci. Donec viverra turpis est. Fusce pharetra porttitor nisi nec dignissim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel nulla magna, id gravida libero. Aliquam erat volutpat. Sed accumsan risus id sem rhoncus in placerat lacus luctus. Maecenas eu enim ipsum. Integer vel lectus vitae lacus pellentesque bibendum. Pellentesque eros erat, volutpat at consequat ac, commodo ut orci. Nulla facilisi. Integer dictum, nibh eu ultricies laoreet, nunc nisi vestibulum nisi, ut bibendum tortor purus id mauris. Nulla sed turpis eleifend magna malesuada luctus id eget arcu. Suspendisse vehicula augue pulvinar nunc lacinia ac tempor augue rutrum. Praesent ac nulla eros, id pretium nisl.
-        POST
+        # Default args
+        args.with_defaults(:dir => "_posts")
+
+        puts "Creating new post..."
+
+        # Generate slug
+        slug = args.title.downcase.gsub(/[^a-z0-9]+/, '-').chomp('-')
+
+        # Filename must be in format YYYY-MM-DD-title.<extension>
+        now = Time.new.strftime("%F")
+
+        # Count number of posts for today, append to title to sort properly
+        count = Dir["#{args.dir}/#{now}*.md"].length
+
+        # Open default post template
+        template = ERB.new( File.open("_templates/post.erb", "r") { |f| f.read } )
+        post = template.result(binding)
+
+        # Write default post
         filename = "#{now}-%02d-#{slug}.md" % count
         File.open("#{args.dir}/#{filename}", "w+") do |file|
             file.puts(post)
         end
+
+        # Edit post
         system "vim #{args.dir}/#{filename}"
+    end
+end
+
+namespace :s3 do
+    desc "List all S3 objects, optionally specifiying a bucket"
+    task :list, [:bucket] do |t, args|
+        require 'aws/s3'
+        require 'pp'
+        require 'YAML'
+
+        # Load S3 credentials
+        config = YAML.load_file(File.expand_path('~/.amazon_keys'))
+
+        # Default bucket
+        args.with_defaults(:bucket => config['bucket'])
+
+        # Try to connect to S3
+        print "Establishing S3 connection..."
+        AWS::S3::Base.establish_connection!(
+            :access_key_id => config['access_key_id'],
+            :secret_access_key => config['secret_access_key'],
+            :use_ssl => true
+        )
+        print "Done\n\n"
+
+        # Find bucket
+        bucket = AWS::S3::Bucket.find(args.bucket)
+        puts "Found #{bucket.size} object(s)"
+        puts
+
+        # List each object in bucket
+        bucket.objects.each do |obj|
+            puts "Name: #{obj.key}"
+            puts "URL: #{obj.url}"
+            pp obj.about
+            puts
+        end
     end
 end
