@@ -124,7 +124,7 @@ namespace :s3 do
 
         # Find bucket
         bucket = AWS::S3::Bucket.find(args.bucket)
-        puts "Found #{bucket.size} object(s)"
+        puts "Found #{bucket.size} object(s) in bucket '#{args.bucket}'"
         puts
 
         # List each object in bucket
